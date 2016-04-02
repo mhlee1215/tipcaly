@@ -83,6 +83,8 @@ public class MainActivity extends AppCompatActivity implements ActionBar.TabList
                             .setText(mAppSectionsPagerAdapter.getPageTitle(i))
                             .setTabListener(this));
         }
+
+        mViewPager.setPageTransformer(true, new DepthPageTransformer());
     }
 
     @Override
@@ -134,9 +136,9 @@ public class MainActivity extends AppCompatActivity implements ActionBar.TabList
         @Override
         public CharSequence getPageTitle(int position) {
             if( position == 0){
-                return "Simple";
+                return "Pay Alone";
             }else if(position == 1){
-                return "Complex";
+                return "Pay Together";
             }
             return "Null";
         }
