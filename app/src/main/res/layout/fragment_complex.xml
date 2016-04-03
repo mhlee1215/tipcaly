@@ -12,10 +12,11 @@
         android:layout_height="match_parent">
 
         <LinearLayout
-
+            android:id="@+id/bill_layout"
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            >
 
             <TextView
                 style="@style/text_view_text"
@@ -91,29 +92,68 @@
                 android:layout_height="wrap_content"
                 android:background="#666666">
 
-                <TextView
+                <RelativeLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    style="@style/text_view_button_small"
-                    android:text=""
-                    android:layout_weight="8"
-                    android:paddingLeft="16dp" />
+                    android:layout_gravity="left"
+                    android:gravity="left"
+                    android:layout_weight="2"
+                    android:paddingLeft="10dp"
+                    android:layout_marginRight="0dp"
+                    >
+
+                    <Button
+                        android:layout_margin="1dp"
+                        android:id="@+id/button_add"
+                        android:layout_width="80dp"
+                        android:layout_height="30dp"
+                        android:background="@drawable/button_2"
+
+                        android:layout_centerVertical="true"
+                        android:gravity="center"
+                        >
+                    </Button>
+
+                    <ImageView
+                        android:id="@+id/img_add"
+                        android:layout_marginLeft="5dp"
+                        android:layout_width="22dp"
+                        android:layout_height="22dp"
+
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/ic_note_add_white_24dp" />
+
+                    <TextView
+                        android:layout_marginLeft="25dp"
+                        android:layout_alignLeft="@id/img_add"
+                        style="@style/text_view_button_small2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+                        android:text="Add"
+                        />
+
+                </RelativeLayout>
 
                 <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="@style/text_view_button_small"
+                    android:layout_height="match_parent"
+                    style="@style/text_view_button_small2"
                     android:text="Menu Price"
-                    android:layout_weight="4"
+                    android:layout_weight="4.5"
+                    android:gravity="center_vertical"
                     android:paddingLeft="16dp" />
 
                 <TextView
                     android:id="@+id/count"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Pay"
-                    style="@style/text_view_button_small"
-                    android:layout_weight="4" />
+                    android:layout_height="match_parent"
+                    android:paddingRight="8dp"
+                    android:text="Payment"
+                    android:gravity="center_vertical|right"
+                    style="@style/text_view_button_small2"
+                    android:layout_weight="3.5" />
 
             </LinearLayout>
 
@@ -406,36 +446,7 @@
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
                 >
-                <RelativeLayout
-                    android:layout_weight="1"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="left"
-                    android:layout_marginRight="40dp"
-                    >
 
-                    <Button
-                        android:layout_margin="1dp"
-                        android:id="@+id/button_clear"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@drawable/button_3"
-                        android:layout_centerHorizontal="true"
-                        android:layout_centerVertical="true"
-                        android:gravity="center"
-                        >
-                    </Button>
-
-                    <TextView
-                        style="@style/text_view_button_small_dark"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerHorizontal="true"
-                        android:layout_centerVertical="true"
-                        android:text="X"
-                        />
-
-                </RelativeLayout>
 
             </RelativeLayout>
 
@@ -541,6 +552,36 @@
                 android:layout_gravity="center"
                 >
 
+                <RelativeLayout
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="left"
+                    android:layout_marginRight="40dp"
+                    >
+
+                    <!--<Button-->
+                        <!--android:layout_margin="1dp"-->
+                        <!--android:id="@+id/button_clear"-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="match_parent"-->
+                        <!--android:background="@drawable/button_3"-->
+                        <!--android:layout_centerHorizontal="true"-->
+                        <!--android:layout_centerVertical="true"-->
+                        <!--android:gravity="center"-->
+                        <!-->-->
+                    <!--</Button>-->
+
+                    <!--<TextView-->
+                        <!--style="@style/text_view_button_small_dark"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_centerHorizontal="true"-->
+                        <!--android:layout_centerVertical="true"-->
+                        <!--android:text="X"-->
+                        <!--/>-->
+
+                </RelativeLayout>
 
             </RelativeLayout>
 

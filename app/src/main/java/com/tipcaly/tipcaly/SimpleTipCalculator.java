@@ -1,5 +1,6 @@
 package com.tipcaly.tipcaly;
 
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -23,7 +24,8 @@ import com.google.android.gms.ads.AdView;
      */
     public class SimpleTipCalculator extends Fragment {
 
-
+        public static final int DIGIT_RANGE = 7;
+        public static final int defaultTipRatio = 15;
         private List<String> billAmount;
         View rootView;
         SeekBar tipSeekBar;
@@ -32,13 +34,15 @@ import com.google.android.gms.ads.AdView;
                                  Bundle savedInstanceState) {
 
             billAmount = new LinkedList<>();
-            for(int i = 0 ; i < 7 ; i++) billAmount.add("0");
+            for(int i = 0 ; i < DIGIT_RANGE ; i++) billAmount.add("0");
 
             rootView = inflater.inflate(R.layout.fragment_simple, container, false);
 
 
             TextView textViewBillAmount = (TextView)rootView.findViewById(R.id.bill_amount);
             textViewBillAmount.setText(CustomFormatter.customFormat("###0.00", 0));
+
+            CustomFormatter.setHighlight(textViewBillAmount, getResources());
 
             TextView textViewTipAmount = (TextView)rootView.findViewById(R.id.tip_amount);
             textViewTipAmount.setText(CustomFormatter.customFormat("###0.00", 0));
@@ -73,7 +77,7 @@ import com.google.android.gms.ads.AdView;
                 button.setOnClickListener(new MyClickListener(this, "C"));}
 
 
-            int defaultTipRatio = 15;
+
             tipSeekBar = (SeekBar)rootView.findViewById(R.id.seek1);
             tipSeekBar.setProgress(defaultTipRatio);
             tipSeekBar.setOnSeekBarChangeListener(new MySeekBarChangeListener(this, defaultTipRatio));
@@ -120,6 +124,7 @@ import com.google.android.gms.ads.AdView;
             @Override
             public void onClick(View v)
             {
+                ((MainActivity)act.getActivity()).startGame();
                 act.addNumber(num);
             }
         }
@@ -138,7 +143,7 @@ import com.google.android.gms.ads.AdView;
             }
             else if("c".equalsIgnoreCase(num)){
                 billAmount.clear();
-                for(int i = 0 ; i < 7 ; i++) billAmount.add("0");
+                for(int i = 0 ; i < SimpleTipCalculator.DIGIT_RANGE ; i++) billAmount.add("0");
             }
             else{
                 billAmount.add(num);
