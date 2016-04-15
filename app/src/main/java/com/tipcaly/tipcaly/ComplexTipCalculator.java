@@ -1,7 +1,9 @@
 package com.tipcaly.tipcaly;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.text.Spannable;
 import android.text.style.BackgroundColorSpan;
@@ -31,9 +33,15 @@ public class ComplexTipCalculator extends Fragment {
     int selectedRow = -1;
     SeekBar tipSeekBar;
 
+    SharedPreferences prefs = null;
+    SharedPreferences.Editor editor = null;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
+        editor = prefs.edit();
 
         billAmount = new LinkedList<>();
         for(int i = 0 ; i < SimpleTipCalculator.DIGIT_RANGE ; i++) billAmount.add("0");
@@ -114,13 +122,32 @@ public class ComplexTipCalculator extends Fragment {
             button.setOnClickListener(new MyComplexClickListener(this, "bill_focus"));}
 
 
-        int defaultTipRatio = SimpleTipCalculator.defaultTipRatio;
+        int tipRatio = prefs.getInt(SimpleTipCalculator.PREV_TIP_RATIO, SimpleTipCalculator.defaultTipRatio);
+
         tipSeekBar = (SeekBar)rootView.findViewById(R.id.seek1);
-        tipSeekBar.setProgress(defaultTipRatio);
-        tipSeekBar.setOnSeekBarChangeListener(new MyComplexSeekBarChangeListener(this, defaultTipRatio));
+        tipSeekBar.setProgress(tipRatio);
+        tipSeekBar.setOnSeekBarChangeListener(new MyComplexSeekBarChangeListener(this, tipRatio));
 
         return rootView;
     }
+
+    public void setBillAmount(List<String> bill){
+        billAmount = new LinkedList<>();
+        billAmount.addAll(bill);
+        updateNumbers();
+    }
+
+    public List getBill(){
+        return billAmount;
+    }
+
+    public void updateExternalTipRatio(){
+        int ratio = prefs.getInt(SimpleTipCalculator.PREV_TIP_RATIO, SimpleTipCalculator.defaultTipRatio);
+        tipSeekBar.setProgress(ratio);
+        updateTipRatio(ratio);
+    }
+
+
 
     public void selectUpperRow(){
         if(selectedRow > -1)
@@ -177,6 +204,10 @@ public class ComplexTipCalculator extends Fragment {
         @Override
         public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
             progressChanged = progress;
+
+            editor.putInt(SimpleTipCalculator.PREV_TIP_RATIO, progress);
+            editor.commit();
+
             act.updateTipRatio(progress);
         }
 

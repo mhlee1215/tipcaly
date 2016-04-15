@@ -1,7 +1,9 @@
 package com.tipcaly.tipcaly;
 
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,15 +25,22 @@ import com.google.android.gms.ads.AdView;
      * A dummy fragment representing a section of the app, but that simply displays dummy text.
      */
     public class SimpleTipCalculator extends Fragment {
-
+        public static final String PREV_TIP_RATIO = "PREV_TIP_RATIO";
         public static final int DIGIT_RANGE = 7;
         public static final int defaultTipRatio = 15;
-        private List<String> billAmount;
+        public static List<String> billAmount;
         View rootView;
         SeekBar tipSeekBar;
+
+        SharedPreferences prefs = null;
+        SharedPreferences.Editor editor = null;
+
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
+
+            prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
+            editor = prefs.edit();
 
             billAmount = new LinkedList<>();
             for(int i = 0 ; i < DIGIT_RANGE ; i++) billAmount.add("0");
@@ -79,10 +88,28 @@ import com.google.android.gms.ads.AdView;
 
 
             tipSeekBar = (SeekBar)rootView.findViewById(R.id.seek1);
-            tipSeekBar.setProgress(defaultTipRatio);
-            tipSeekBar.setOnSeekBarChangeListener(new MySeekBarChangeListener(this, defaultTipRatio));
+
+            int tipRatio = prefs.getInt(PREV_TIP_RATIO, defaultTipRatio);
+            tipSeekBar.setProgress(tipRatio);
+            tipSeekBar.setOnSeekBarChangeListener(new MySeekBarChangeListener(this, tipRatio));
 
             return rootView;
+        }
+
+        public void setBillAmount(List<String> bill){
+            billAmount = new LinkedList<>();
+            billAmount.addAll(bill);
+            updateNumbers();
+        }
+
+        public List getBill(){
+            return billAmount;
+        }
+
+        public void updateExternalTipRatio(){
+            int ratio = prefs.getInt(PREV_TIP_RATIO, defaultTipRatio);
+            tipSeekBar.setProgress(ratio);
+            updateTipRatio(ratio);
         }
 
         public class MySeekBarChangeListener implements SeekBar.OnSeekBarChangeListener
@@ -97,6 +124,10 @@ import com.google.android.gms.ads.AdView;
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 progressChanged = progress;
+
+                editor.putInt(PREV_TIP_RATIO, progress);
+                editor.commit();
+
                 act.updateTipRatio(progress);
             }
 

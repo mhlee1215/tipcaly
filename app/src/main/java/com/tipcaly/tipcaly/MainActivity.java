@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.SeekBar;
+import android.widget.TabHost;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -53,6 +54,9 @@ public class MainActivity extends AppCompatActivity implements ActionBar.TabList
 
     boolean hasShownAd = true;
     private static final long GAME_LENGTH_MILLISECONDS = 10000;
+
+    public static final String TAG_PAY_ALONE = "TAG_PAY_ALONE";
+    public static final String TAG_PAY_TOGETHER = "TAG_PAY_TOGETHER";
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -109,11 +113,47 @@ public class MainActivity extends AppCompatActivity implements ActionBar.TabList
         TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
         tabLayout.setupWithViewPager(mViewPager);
 
-        tabLayout.getTabAt(0).setIcon(R.drawable.ic_add_circle_black_24dp);
-        tabLayout.getTabAt(1).setIcon(R.drawable.ic_remove_circle_outline_black_24dp);
+        tabLayout.getTabAt(0).setIcon(R.drawable.ic_perm_identity_black_48dp);
+        tabLayout.getTabAt(0).setTag(TAG_PAY_ALONE);
+        tabLayout.getTabAt(1).setIcon(R.drawable.ic_supervisor_account_black_48dp);
+        tabLayout.getTabAt(1).setTag(TAG_PAY_TOGETHER);
 
 
         mViewPager.setPageTransformer(true, new DepthPageTransformer());
+
+
+        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+
+
+                if(TAG_PAY_ALONE.equals(tab.getTag())){
+                    System.out.println("Hello111!");
+                    List<String> bill = ((ComplexTipCalculator)mAppSectionsPagerAdapter.getFragment(1)).getBill();
+                    ((SimpleTipCalculator)mAppSectionsPagerAdapter.getFragment(0)).setBillAmount(bill);
+                    ((SimpleTipCalculator)mAppSectionsPagerAdapter.getFragment(0)).updateExternalTipRatio();
+                }else if(TAG_PAY_TOGETHER.equals(tab.getTag())){
+                    System.out.println("Hello22!");
+                    List<String> bill = ((SimpleTipCalculator)mAppSectionsPagerAdapter.getFragment(0)).getBill();
+                    ((ComplexTipCalculator)mAppSectionsPagerAdapter.getFragment(1)).setBillAmount(bill);
+                    ((ComplexTipCalculator)mAppSectionsPagerAdapter.getFragment(1)).updateExternalTipRatio();
+                }
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+
+
+
+
 
 
 
@@ -212,21 +252,35 @@ public class MainActivity extends AppCompatActivity implements ActionBar.TabList
      * sections of the app.
      */
     public static class AppSectionsPagerAdapter extends FragmentPagerAdapter {
+        public static SimpleTipCalculator simple;
+        public static Fragment complex;
+
+        static{
+            simple = new SimpleTipCalculator();
+            complex = new ComplexTipCalculator();
+        }
 
         public AppSectionsPagerAdapter(FragmentManager fm) {
+
             super(fm);
+
+
+        }
+
+        public Fragment getFragment(int i){
+            if(i == 0) return simple;
+            else if(i == 1) return complex;
+            else return null;
         }
 
         @Override
         public Fragment getItem(int i) {
             switch (i) {
-                case 1:
-                   return new SimpleTipCalculator();
-
                 case 0:
-                    // The other sections of the app are dummy placeholders.
-                    Fragment fragment = new ComplexTipCalculator();
-                    return fragment;
+                   return simple;
+
+                case 1:
+                    return complex;
                 default:
                     return null;
             }
