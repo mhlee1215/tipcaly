@@ -1,7 +1,6 @@
 
 package com.tipcaly.tipcaly;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v4.app.Fragment;
@@ -10,24 +9,12 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.SeekBar;
-import android.widget.TabHost;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
-import com.tipcaly.tipcaly.utils.CustomFormatter;
 
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Queue;
-import java.util.concurrent.LinkedBlockingDeque;
 import android.support.design.widget.TabLayout;
 
 
@@ -69,43 +56,6 @@ public class MainActivity extends AppCompatActivity implements ActionBar.TabList
         // Set up the action bar.
         final ActionBar actionBar = getSupportActionBar();// getActionBar();
         actionBar.hide();
-        // Specify that the Home/Up button should not be enabled, since there is no hierarchical
-        // parent.
-//        actionBar.setHomeButtonEnabled(false);
-//        actionBar.setTitle("");
-//
-//        // Specify that we will be displaying tabs in the action bar.
-//        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-
-        // Set up the ViewPager, attaching the adapter and setting up a listener for when the
-        // user swipes between sections.
-//        mViewPager = (ViewPager) findViewById(R.id.pager);
-//        mViewPager.setAdapter(mAppSectionsPagerAdapter);
-//        mViewPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
-//            @Override
-//            public void onPageSelected(int position) {
-//                // When swiping between different app sections, select the corresponding tab.
-//                // We can also use ActionBar.Tab#select() to do this if we have a reference to the
-//                // Tab.
-//                actionBar.setSelectedNavigationItem(position);
-//            }
-//        });
-//
-//        // For each of the sections in the app, add a tab to the action bar.
-//        for (int i = 0; i < mAppSectionsPagerAdapter.getCount(); i++) {
-//            // Create a tab with text corresponding to the page title defined by the adapter.
-//            // Also specify this Activity object, which implements the TabListener interface, as the
-//            // listener for when this tab is selected.
-//            actionBar.addTab(
-//                    actionBar.newTab()
-//                            .setText(mAppSectionsPagerAdapter.getPageTitle(i))
-//                            .setTabListener(this));
-//        }
-//
-//        mViewPager.setPageTransformer(true, new DepthPageTransformer());
-//
-//        TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
-//        tabLayout.setupWithViewPager(mViewPager);
 
         mViewPager = (ViewPager) findViewById(R.id.pager);
 
@@ -148,11 +98,6 @@ public class MainActivity extends AppCompatActivity implements ActionBar.TabList
 
             }
         });
-
-
-
-
-
 
 
 
@@ -275,7 +220,7 @@ public class MainActivity extends AppCompatActivity implements ActionBar.TabList
         public Fragment getItem(int i) {
             switch (i) {
                 case 0:
-                   return simple;
+                    return simple;
 
                 case 1:
                     return complex;
@@ -299,11 +244,5 @@ public class MainActivity extends AppCompatActivity implements ActionBar.TabList
             return "Null";
         }
     }
-
-
-
-
-
-
 
 }
