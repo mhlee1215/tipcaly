@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity implements ActionBar.TabList
     private boolean mGameIsInProgress;
     private long mTimerMilliseconds;
 
-    boolean hasShownAd = true;
+    boolean hasShownAd = false;
     private static final long GAME_LENGTH_MILLISECONDS = 10000;
 
     public static final String TAG_PAY_ALONE = "TAG_PAY_ALONE";
@@ -71,11 +71,11 @@ public class MainActivity extends AppCompatActivity implements ActionBar.TabList
         actionBar.hide();
         // Specify that the Home/Up button should not be enabled, since there is no hierarchical
         // parent.
-        actionBar.setHomeButtonEnabled(false);
-        actionBar.setTitle("");
-
-        // Specify that we will be displaying tabs in the action bar.
-        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+//        actionBar.setHomeButtonEnabled(false);
+//        actionBar.setTitle("");
+//
+//        // Specify that we will be displaying tabs in the action bar.
+//        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 
         // Set up the ViewPager, attaching the adapter and setting up a listener for when the
         // user swipes between sections.
@@ -128,12 +128,10 @@ public class MainActivity extends AppCompatActivity implements ActionBar.TabList
 
 
                 if(TAG_PAY_ALONE.equals(tab.getTag())){
-                    System.out.println("Hello111!");
                     List<String> bill = ((ComplexTipCalculator)mAppSectionsPagerAdapter.getFragment(1)).getBill();
                     ((SimpleTipCalculator)mAppSectionsPagerAdapter.getFragment(0)).setBillAmount(bill);
                     ((SimpleTipCalculator)mAppSectionsPagerAdapter.getFragment(0)).updateExternalTipRatio();
                 }else if(TAG_PAY_TOGETHER.equals(tab.getTag())){
-                    System.out.println("Hello22!");
                     List<String> bill = ((SimpleTipCalculator)mAppSectionsPagerAdapter.getFragment(0)).getBill();
                     ((ComplexTipCalculator)mAppSectionsPagerAdapter.getFragment(1)).setBillAmount(bill);
                     ((ComplexTipCalculator)mAppSectionsPagerAdapter.getFragment(1)).updateExternalTipRatio();
