@@ -11,7 +11,7 @@
                 android:shape="rectangle" >
                 <!--<stroke android:color="@color/transparent" android:width="10dp"/>-->
                 <solid
-                    android:color="@color/dark_jungle_green" />
+                    android:color="@color/white" />
             </shape>
         </rotate>
 
