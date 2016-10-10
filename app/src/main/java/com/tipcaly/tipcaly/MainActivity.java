@@ -18,7 +18,7 @@ import java.util.List;
 import android.support.design.widget.TabLayout;
 
 
-public class MainActivity extends AppCompatActivity implements ActionBar.TabListener {
+public class MainActivity extends AppCompatActivity{
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide fragments for each of the
@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity implements ActionBar.TabList
     private long mTimerMilliseconds;
 
     boolean hasShownAd = false;
-    private static final long GAME_LENGTH_MILLISECONDS = 10000;
+    private static final long GAME_LENGTH_MILLISECONDS = 20000;
 
     public static final String TAG_PAY_ALONE = "TAG_PAY_ALONE";
     public static final String TAG_PAY_TOGETHER = "TAG_PAY_TOGETHER";
@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity implements ActionBar.TabList
         mViewPager = (ViewPager) findViewById(R.id.pager);
 
         mViewPager.setAdapter(mAppSectionsPagerAdapter);
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabs_head);
         tabLayout.setupWithViewPager(mViewPager);
 
         tabLayout.getTabAt(0).setIcon(R.drawable.ic_perm_identity_black_48dp);
@@ -75,8 +75,8 @@ public class MainActivity extends AppCompatActivity implements ActionBar.TabList
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-
-
+                System.out.println("hi"+tab.getTag());
+                mViewPager.setCurrentItem(tab.getPosition());
                 if(TAG_PAY_ALONE.equals(tab.getTag())){
                     List<String> bill = ((ComplexTipCalculator)mAppSectionsPagerAdapter.getFragment(1)).getBill();
                     ((SimpleTipCalculator)mAppSectionsPagerAdapter.getFragment(0)).setBillAmount(bill);
@@ -174,21 +174,21 @@ public class MainActivity extends AppCompatActivity implements ActionBar.TabList
         };
     }
 
-    @Override
-    public void onTabSelected(ActionBar.Tab tab, android.support.v4.app.FragmentTransaction ft) {
-        // When the given tab is selected, switch to the corresponding page in the ViewPager.
-        mViewPager.setCurrentItem(tab.getPosition());
-    }
-
-    @Override
-    public void onTabUnselected(ActionBar.Tab tab, android.support.v4.app.FragmentTransaction ft) {
-
-    }
-
-    @Override
-    public void onTabReselected(ActionBar.Tab tab, android.support.v4.app.FragmentTransaction ft) {
-
-    }
+//    @Override
+//    public void onTabSelected(ActionBar.Tab tab, android.support.v4.app.FragmentTransaction ft) {
+//        // When the given tab is selected, switch to the corresponding page in the ViewPager.
+//        mViewPager.setCurrentItem(tab.getPosition());
+//    }
+//
+//    @Override
+//    public void onTabUnselected(ActionBar.Tab tab, android.support.v4.app.FragmentTransaction ft) {
+//
+//    }
+//
+//    @Override
+//    public void onTabReselected(ActionBar.Tab tab, android.support.v4.app.FragmentTransaction ft) {
+//
+//    }
 
     /**
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to one of the primary
