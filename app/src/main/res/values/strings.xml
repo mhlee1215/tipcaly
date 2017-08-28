@@ -2,4 +2,7 @@
     <string name="app_name">Tip and Split</string>
     <string name="ad_unit_id">ca-app-pub-8438087308844808/4205873373</string>
 
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 </resources>

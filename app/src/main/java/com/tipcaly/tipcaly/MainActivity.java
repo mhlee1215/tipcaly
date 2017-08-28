@@ -40,10 +40,12 @@ public class MainActivity extends AppCompatActivity{
     private long mTimerMilliseconds;
 
     boolean hasShownAd = false;
+    boolean isAdFree = true;
     private static final long GAME_LENGTH_MILLISECONDS = 20000;
 
     public static final String TAG_PAY_ALONE = "TAG_PAY_ALONE";
     public static final String TAG_PAY_TOGETHER = "TAG_PAY_TOGETHER";
+    public static final String TAG_ABOUT_DEVELOPER = "TAG_ABOUT_DEVELOPER";
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,10 +65,14 @@ public class MainActivity extends AppCompatActivity{
         TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabs_head);
         tabLayout.setupWithViewPager(mViewPager);
 
-        tabLayout.getTabAt(0).setIcon(R.drawable.ic_perm_identity_black_48dp);
+        tabLayout.getTabAt(0).setIcon(R.drawable.ic_person_black_48dp);
         tabLayout.getTabAt(0).setTag(TAG_PAY_ALONE);
         tabLayout.getTabAt(1).setIcon(R.drawable.ic_supervisor_account_black_48dp);
         tabLayout.getTabAt(1).setTag(TAG_PAY_TOGETHER);
+        tabLayout.getTabAt(2).setIcon(R.drawable.ic_star_black_48dp);
+        tabLayout.getTabAt(2).setTag(TAG_ABOUT_DEVELOPER);
+
+
 
 
         mViewPager.setPageTransformer(true, new DepthPageTransformer());
@@ -85,6 +91,10 @@ public class MainActivity extends AppCompatActivity{
                     List<String> bill = ((SimpleTipCalculator)mAppSectionsPagerAdapter.getFragment(0)).getBill();
                     ((ComplexTipCalculator)mAppSectionsPagerAdapter.getFragment(1)).setBillAmount(bill);
                     ((ComplexTipCalculator)mAppSectionsPagerAdapter.getFragment(1)).updateExternalTipRatio();
+                }else if(TAG_ABOUT_DEVELOPER.equals(tab.getTag())){
+                    List<String> bill = ((SimpleTipCalculator)mAppSectionsPagerAdapter.getFragment(0)).getBill();
+                    ((ComplexTipCalculator)mAppSectionsPagerAdapter.getFragment(1)).setBillAmount(bill);
+                    ((ComplexTipCalculator)mAppSectionsPagerAdapter.getFragment(1)).updateExternalTipRatio();
                 }
             }
 
@@ -100,20 +110,22 @@ public class MainActivity extends AppCompatActivity{
         });
 
 
+        if(!isAdFree){
+            // Create the InterstitialAd and set the adUnitId.
+            mInterstitialAd = new InterstitialAd(this);
+            // Defined in res/values/strings.xml
+            mInterstitialAd.setAdUnitId(getString(R.string.ad_unit_id));
 
-        // Create the InterstitialAd and set the adUnitId.
-        mInterstitialAd = new InterstitialAd(this);
-        // Defined in res/values/strings.xml
-        mInterstitialAd.setAdUnitId(getString(R.string.ad_unit_id));
+            mInterstitialAd.setAdListener(new AdListener() {
+                @Override
+                public void onAdClosed() {
+                    startGame();
+                }
+            });
 
-        mInterstitialAd.setAdListener(new AdListener() {
-            @Override
-            public void onAdClosed() {
-                startGame();
-            }
-        });
+            startGame();
+        }
 
-        startGame();
     }
 
     public void showInterstitial() {
@@ -197,10 +209,12 @@ public class MainActivity extends AppCompatActivity{
     public static class AppSectionsPagerAdapter extends FragmentPagerAdapter {
         public static SimpleTipCalculator simple;
         public static Fragment complex;
+        public static Fragment about;
 
         static{
             simple = new SimpleTipCalculator();
             complex = new ComplexTipCalculator();
+            about = new AboutFragment();
         }
 
         public AppSectionsPagerAdapter(FragmentManager fm) {
@@ -213,6 +227,7 @@ public class MainActivity extends AppCompatActivity{
         public Fragment getFragment(int i){
             if(i == 0) return simple;
             else if(i == 1) return complex;
+            else if(i == 2) return about;
             else return null;
         }
 
@@ -221,9 +236,10 @@ public class MainActivity extends AppCompatActivity{
             switch (i) {
                 case 0:
                     return simple;
-
                 case 1:
                     return complex;
+                case 2:
+                    return about;
                 default:
                     return null;
             }
@@ -231,7 +247,7 @@ public class MainActivity extends AppCompatActivity{
 
         @Override
         public int getCount() {
-            return 2;
+            return 3;
         }
 
         @Override
@@ -240,6 +256,9 @@ public class MainActivity extends AppCompatActivity{
                 return "Pay Alone";
             }else if(position == 1){
                 return "Pay Together";
+            }
+            else if(position == 2){
+                return "About";
             }
             return "Null";
         }
