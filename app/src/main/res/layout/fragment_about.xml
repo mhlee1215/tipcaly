@@ -28,26 +28,100 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:text="Let's make easier world."
+        android:text="Let's make the world easier."
         android:textSize="20dp"
         />
 
-    <EditText
-        android:id="@+id/text_edit"
-        android:layout_width="300dp"
-        android:layout_height="100dp"
-        android:layout_centerHorizontal="true"
+
+
+    <LinearLayout
+        android:id="@+id/send_mail_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
         android:layout_below="@id/text_view2"
-        />
+        android:layout_centerVertical="true"
+        android:layout_gravity="center_horizontal"
+        android:layout_centerHorizontal="true"
+        >
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/user_opinion_layout"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/text_opinion"
+            android:layout_width="300dp"
+            android:layout_height="130dp"
+            android:layout_centerHorizontal="true"
+            android:background="@color/charcoal"
+            android:textColor="@color/white"
+            />
+        </android.support.design.widget.TextInputLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="center"
+            >
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:scaleType="fitXY"
+                android:adjustViewBounds="true"
+                android:src="@drawable/irish_coffee" />
+            <Button
+                android:id="@+id/sendBtn"
+                android:layout_width="180dp"
+                android:layout_height="40dp"
+                android:background="@drawable/button_buy"
+                android:layout_gravity="center"
+                android:textSize="17dp"
+                android:text="Send an opinion" />
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+
+
+    <TextView
+        style="@style/text_view_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:text="Icon designed by Freepik from Flaticon"
+        android:textSize="12dp"
+        android:id="@+id/icon_publisher" />
 
     <LinearLayout
         android:id="@+id/wrapper"
-        android:layout_below="@id/text_edit"
+        android:layout_above="@id/icon_publisher"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentRight="true"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="50dp"
+        android:layout_alignParentBottom="true"
         android:layout_centerVertical="true"
         android:orientation="vertical" >
+
+        <TextView
+            style="@style/text_view_text"
+            android:id="@+id/text_view3"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="Want to support me?"
+            android:textSize="18dp"
+            />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -64,38 +138,13 @@
             <Button
                 android:id="@+id/buyItBtn"
                 android:layout_width="180dp"
-                android:layout_height="50dp"
+                android:layout_height="40dp"
                 android:background="@drawable/button_buy"
-                android:layout_centerHorizontal="true"
+                android:layout_gravity="center"
                 android:textSize="17dp"
                 android:text="Buy me a coffee" />
         </LinearLayout>
 
-
-
-        <!--<Button-->
-            <!--android:id="@+id/futurePaymentBtn"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_marginTop="20dp"-->
-            <!--android:onClick="onFuturePaymentPressed"-->
-            <!--android:text="Future Payment Consent" />-->
-
-        <!--<Button-->
-            <!--android:id="@+id/futurePaymentPurchaseBtn"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_marginTop="20dp"-->
-            <!--android:onClick="onFuturePaymentPurchasePressed"-->
-            <!--android:text="Future Payment Purchase" />-->
-
-        <!--<Button-->
-            <!--android:id="@+id/profileSharingBtn"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_marginTop="20dp"-->
-            <!--android:onClick="onProfileSharingPressed"-->
-            <!--android:text="Profile Sharing Consent" />-->
 
         <TextView
             android:layout_width="wrap_content"
@@ -104,16 +153,5 @@
             android:text=""
             android:id="@+id/txtResult" />
     </LinearLayout>
-
-
-    <TextView
-        style="@style/text_view_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:text="Icon designed by Freepik from Flaticon"
-        android:textSize="12dp"
-        android:id="@+id/icon_publisher" />
 
 </RelativeLayout>

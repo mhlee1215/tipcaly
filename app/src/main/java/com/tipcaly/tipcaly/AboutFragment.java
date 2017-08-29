@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -82,6 +83,7 @@ public class AboutFragment extends Fragment{
 //            .merchantUserAgreementUri(Uri.parse("https://www.example.com/legal"));
 
     View view;
+    EditText sendContent;
 
     public AboutFragment() {
         // Required empty public constructor
@@ -126,6 +128,25 @@ public class AboutFragment extends Fragment{
             @Override
             public void onClick(View v) {
                 onBuyPressed();
+            }
+        });
+
+        sendContent = (EditText)view.findViewById(R.id.text_opinion);
+
+        Button sendBtn = (Button)view.findViewById(R.id.sendBtn);
+        sendBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(Intent.ACTION_SEND);
+                i.setType("message/rfc822");
+                i.putExtra(Intent.EXTRA_EMAIL  , new String[]{"mhlee1215+tipcalyandroid@gmail.com"});
+                i.putExtra(Intent.EXTRA_SUBJECT, "User's Opinion");
+                i.putExtra(Intent.EXTRA_TEXT   , sendContent.getText().toString());
+                try {
+                    startActivity(Intent.createChooser(i, "Send mail to the developer."));
+                } catch (android.content.ActivityNotFoundException ex) {
+                    Toast.makeText(getActivity(), "There are no email clients installed.", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
