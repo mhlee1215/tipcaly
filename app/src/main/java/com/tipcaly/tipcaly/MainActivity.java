@@ -1,6 +1,9 @@
 
 package com.tipcaly.tipcaly;
 
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v4.app.Fragment;
@@ -16,9 +19,13 @@ import com.google.android.gms.ads.InterstitialAd;
 
 import java.util.List;
 import android.support.design.widget.TabLayout;
+import android.view.Gravity;
+import android.view.View;
+import android.widget.Button;
+import android.widget.RelativeLayout;
 
 
-public class MainActivity extends AppCompatActivity{
+public class MainActivity extends AppCompatActivity {
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide fragments for each of the
@@ -64,6 +71,7 @@ public class MainActivity extends AppCompatActivity{
         mViewPager.setAdapter(mAppSectionsPagerAdapter);
         TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabs_head);
         tabLayout.setupWithViewPager(mViewPager);
+        //tabLayout.setVisibility(View.GONE);
 
         tabLayout.getTabAt(0).setIcon(R.drawable.ic_person_black_48dp);
         tabLayout.getTabAt(0).setTag(TAG_PAY_ALONE);
@@ -263,5 +271,8 @@ public class MainActivity extends AppCompatActivity{
             return "Null";
         }
     }
+
+
+
 
 }
